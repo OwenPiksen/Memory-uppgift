@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading;
+
+
+namespace Bubblesort
+{
+    class Program
+    {
+        static void Bubblesort(List<int> minLista)
+        {
+            for (int i = 0; i < minLista.Count; i++)
+            {
+                for (int j = 0; j < minLista.Count - 1 - i; j++)
+                {
+                    if (minLista[j] < minLista[j + 1]) // Om Elementen ligger i fel ordning.
+                    {
+                        // Byt plats på elementet på j med det på J+1
+                        int temp = minLista[j];
+                        minLista[j] = minLista[j + 1];
+                        minLista[j + 1] = temp;
+                    }
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            var random = new Random();
+            var tallista = new List<int>();
+
+            for (int x = 0; x < 1000000000; x++)
+            {
+                tallista.Add(random.Next(1000000000));
+            }
+            Bubblesort(tallista);
+            foreach (int i in tallista)
+
+            stopWatch.start();
+            Thread.Sleep(10000);
+            stopWatch.Stop();
+            // Få tiden fråm en tids mändg.
+            TimeSpan ts = stopWatch.Elapsed;
+
+            // Formatet och visa tiden.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", 
+                ts.Hours, ts.Minutes, ts.Seconds, 
+                ts.Milliseconds / 100);
+            Console.WriteLine("RunTime " + elapsedTime);
+        }
+    }
+}
